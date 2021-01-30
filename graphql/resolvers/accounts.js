@@ -1,7 +1,6 @@
 const { AuthenticationError, UserInputError } = require("apollo-server");
 const Account = require("../../models/Account");
 
-const Account = require("../../models/Account");
 const checkAuth = require("../../utilities/check-auth");
 
 module.exports = {
@@ -28,15 +27,20 @@ module.exports = {
     },
   },
   Mutation: {
-    async createAccount(_, { body }, context) {
+    async createAccount(_, { name, address }, context) {
       const user = checkAuth(context);
 
-      if (body.trim() === "") {
-        throw new Error("Account body must not be empty");
+      if (name.trim() === "") {
+        throw new Error("Account name must not be empty");
+      }
+
+      if (address.trim() === "") {
+        throw new Error("Account address must not be empty");
       }
 
       const newAccount = new Account({
-        body,
+        name,
+        address,
         user: user.id,
         username: user.username,
         createdAt: new Date().toISOString(),

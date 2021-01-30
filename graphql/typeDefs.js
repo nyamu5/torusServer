@@ -13,11 +13,8 @@ module.exports = typeDefs = gql`
   type Opportunity {
     id: ID!
     name: String!
-    amount: Number!
+    amount: String!
     stage: String!
-    discovery: String!
-    proposal: String!
-    negotiations: String!
     createdAt: String!
     username: String!
   }
@@ -39,9 +36,14 @@ module.exports = typeDefs = gql`
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
-    createAccount(body: String!): Account!
+    createAccount(name: String!, address: String!): Account!
     deleteAccount(accountId: ID!): String!
-    createOpportunity(accountId: ID!, body: String!): Post!
-    deleteOpportunity(accountId: ID!, OpportunityId: ID!): Post!
+    createOpportunity(
+      accountId: ID!
+      name: String!
+      amount: String!
+      stage: String!
+    ): Account!
+    deleteOpportunity(accountId: ID!, OpportunityId: ID!): Account!
   }
 `;
